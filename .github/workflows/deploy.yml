@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:   # ← yahan add karo
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # Node 24 opt-in
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,11 +15,11 @@ jobs:
     steps:
       # 1️⃣ Checkout latest code
       - name: Checkout Code
-        uses: actions/checkout@v4.11.0   # Node 24 compatible
+        uses: actions/checkout@v4   # updated stable version
 
       # 2️⃣ Copy project files to server
       - name: Copy Files to Server
-        uses: appleboy/scp-action@v0.1.9
+        uses: appleboy/scp-action@master   # latest stable
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
@@ -26,7 +29,7 @@ jobs:
 
       # 3️⃣ Restart Node.js app via SSH
       - name: Restart Node App
-        uses: appleboy/ssh-action@v1.0.5
+        uses: appleboy/ssh-action@master   # latest stable
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
