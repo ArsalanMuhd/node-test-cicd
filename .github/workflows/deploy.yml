@@ -22,7 +22,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           source: "."
-          target: "/home/testuser/nodeapp"
+          target: "/home/projectcicd/public_html/nodeapp"
 
       # 3️⃣ Restart Node.js app via SSH
       - name: Restart Node App
@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd /home/testuser/nodeapp
+            cd /home/projectcicd/public_html/nodeapp
             npm install
             pm2 delete node-test || true
             pm2 start server.js --name node-test
